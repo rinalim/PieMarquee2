@@ -4,7 +4,7 @@ import os
 from subprocess import *
 from time import *
 
-INTRO = "/opt/retropie/configs/all/PieMarquee/intro.mp4"
+INTRO = "/opt/retropie/configs/all/PieMarquee2/intro.mp4"
 CHANGE_INTERVAL = 5
 
 def run_cmd(cmd):
@@ -22,7 +22,7 @@ if os.path.isfile(INTRO) == True:
     run_cmd("omxplayer --display 4 " + INTRO)
 
 os.system("omxiv /tmp/marquee.txt -d 4  -f -t 5 -T blend --duration 1000 &")    
-os.system("echo '/home/pi/PieMarquee/marquee/maintitle.png' > /tmp/marquee.txt")
+os.system("echo '/home/pi/PieMarquee2/marquee/maintitle.png' > /tmp/marquee.txt")
     
 cur_imgpath = ""
 change_count = 0
@@ -62,9 +62,9 @@ while True:
     else:
         romname = "maintitle"
    
-    if os.path.isfile("/home/pi/PieMarquee/marquee/" + romname + ".png") == True:
+    if os.path.isfile("/home/pi/PieMarquee2/marquee/" + romname + ".png") == True:
         imgpath = romname
-    elif os.path.isfile("/home/pi/PieMarquee/marquee/" + sysname + ".png") == True:
+    elif os.path.isfile("/home/pi/PieMarquee2/marquee/" + sysname + ".png") == True:
         imgpath = sysname
     else:
         imgpath = "maintitle"
@@ -73,10 +73,10 @@ while True:
     if imgpath != cur_imgpath:
         #print imgpath 
         kill_proc("omxplayer.bin")
-        if imgpath == "maintitle" and os.path.isfile("/home/pi/PieMarquee/marquee/maintitle.mp4") == True:
-            os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee/marquee/maintitle.mp4 &")
+        if imgpath == "maintitle" and os.path.isfile("/home/pi/PieMarquee2/marquee/maintitle.mp4") == True:
+            os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")
         else:
-            fullpath = "/home/pi/PieMarquee/marquee/" + imgpath + ".png"
+            fullpath = "/home/pi/PieMarquee2/marquee/" + imgpath + ".png"
             os.system("echo '" + fullpath + "' > /tmp/marquee.txt")
         cur_imgpath = imgpath
         change_count = 0

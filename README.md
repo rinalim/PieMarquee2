@@ -1,5 +1,5 @@
 # PieMarquee2
-Marquee plugin for RetroPie
+Enhanced Marquee plugin for RetroPie
 
 ## Install
 <pre><code>

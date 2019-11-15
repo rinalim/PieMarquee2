@@ -3,9 +3,9 @@
 import os
 from subprocess import *
 from time import *
+import xml.etree.ElementTree as ET
 
 INTRO = "/opt/retropie/configs/all/PieMarquee2/intro.mp4"
-CHANGE_INTERVAL = 5
 
 def run_cmd(cmd):
 # runs whatever in the cmd variable
@@ -20,18 +20,34 @@ def kill_proc(name):
 
 if os.path.isfile(INTRO) == True:
     run_cmd("omxplayer --display 4 " + INTRO)
-
-os.system("omxiv /tmp/marquee.txt -d 4  -f -t 5 -T blend --duration 1000 &")    
-os.system("echo '/home/pi/PieMarquee2/marquee/maintitle.png' > /tmp/marquee.txt")
     
-cur_imgpath = ""
+def get_publisher(romname):
+    filename = romname+".zip"
+    publisher = ""
+    for item in root:
+        if filename in item.findtext('path'):
+            publisher = item.findtext('publisher')
+            break
+    return publisher
+
+doc = ET.parse("/opt/retropie/configs/all/PieMarquee2/gamelist_short.xml")
+root = doc.getroot()
+
+os.system("echo '/home/pi/PieMarquee2/marquee/maintitle.png' > /tmp/marquee.txt")
+os.system("omxiv /tmp/marquee.txt -f -d 4 -t 5 -T blend --duration 1000 &")    
+    
+cur_imgname = ""
 change_count = 0
 while True:
     sleep_interval = 1
+    ingame = ""
     romname = ""
     sysname = ""
+    pubpath = ""
+    instpath = ""
     ps_grep = run_cmd("ps -aux | grep emulators | grep -v 'grep'")
-    if len(ps_grep) > 1: 
+    if len(ps_grep) > 1:
+        ingame="*"
         words = ps_grep.split()
         if 'advmame' in ps_grep:
             sysname = "mame-advmame"
@@ -63,22 +79,32 @@ while True:
         romname = "maintitle"
    
     if os.path.isfile("/home/pi/PieMarquee2/marquee/" + romname + ".png") == True:
-        imgpath = romname
+        imgname = romname
+        if ingame == "*":
+            publisher = get_publisher(romname)
+            if os.path.isfile("/home/pi/PieMarquee2/marquee/instruction/" + publisher + ".png") == True:
+                pubpath = "/home/pi/PieMarquee2/marquee/publisher/" + publisher + ".png"
+            if os.path.isfile("/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png") == True:
+                instpath = "/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png"
     elif os.path.isfile("/home/pi/PieMarquee2/marquee/" + sysname + ".png") == True:
-        imgpath = sysname
+        imgname = sysname
     else:
-        imgpath = "maintitle"
+        imgname = "maintitle"
         
-    #print romname
-    if imgpath != cur_imgpath:
-        #print imgpath 
+    if imgname+ingame != cur_imgname: # change marquee images
         kill_proc("omxplayer.bin")
-        if imgpath == "maintitle" and os.path.isfile("/home/pi/PieMarquee2/marquee/maintitle.mp4") == True:
+        if imgname == "maintitle" and os.path.isfile("/home/pi/PieMarquee2/marquee/maintitle.mp4") == True:
             os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")
         else:
-            fullpath = "/home/pi/PieMarquee2/marquee/" + imgpath + ".png"
-            os.system("echo '" + fullpath + "' > /tmp/marquee.txt")
-        cur_imgpath = imgpath
-        change_count = 0
+            f = open("/tmp/marquee.txt", "w")
+            if pubpath != ""
+                f.write(pubpath+"\n")
+            f.write("/home/pi/PieMarquee2/marquee/" + imgname + ".png")
+            if instpath != ""
+                f.write("\n"+instpath)
+            f.close()
+            #imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
+            #os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
+        cur_imgname = imgname+ingame
 
     sleep(sleep_interval)

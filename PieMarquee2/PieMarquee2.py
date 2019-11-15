@@ -97,10 +97,10 @@ while True:
             os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")
         else:
             f = open("/tmp/marquee.txt", "w")
-            if pubpath != ""
+            if pubpath != "":
                 f.write(pubpath+"\n")
             f.write("/home/pi/PieMarquee2/marquee/" + imgname + ".png")
-            if instpath != ""
+            if instpath != "":
                 f.write("\n"+instpath)
             f.close()
             #imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"

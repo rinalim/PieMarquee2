@@ -82,7 +82,7 @@ while True:
         imgname = romname
         if ingame == "*":
             publisher = get_publisher(romname)
-            if os.path.isfile("/home/pi/PieMarquee2/marquee/instruction/" + publisher + ".png") == True:
+            if os.path.isfile("/home/pi/PieMarquee2/marquee/publisher/" + publisher + ".png") == True:
                 pubpath = "/home/pi/PieMarquee2/marquee/publisher/" + publisher + ".png"
             if os.path.isfile("/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png") == True:
                 instpath = "/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png"

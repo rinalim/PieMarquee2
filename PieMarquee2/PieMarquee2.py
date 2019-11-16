@@ -34,7 +34,7 @@ def get_publisher(romname):
             publisher = item.findtext('publisher')
             break
     words = publisher.split()
-    return words[0]
+    return words[0].lower()
     
 if os.path.isfile(INTRO) == True:
     run_cmd("omxplayer --display 4 " + INTRO)

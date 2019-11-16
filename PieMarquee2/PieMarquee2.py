@@ -96,6 +96,7 @@ while True:
         if imgname == "maintitle" and os.path.isfile("/home/pi/PieMarquee2/marquee/maintitle.mp4") == True:
             os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")
         else:
+            '''
             f = open("/tmp/marquee.txt", "w")
             if pubpath != "":
                 f.write(pubpath+"\n")
@@ -103,8 +104,9 @@ while True:
             if instpath != "":
                 f.write("\n"+instpath)
             f.close()
-            #imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
-            #os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
+            '''
+            imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
+            os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
         cur_imgname = imgname+ingame
 
     sleep(sleep_interval)

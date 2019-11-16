@@ -114,6 +114,11 @@ while True:
             f.close()
             '''
             imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
+            if ingame == "*":
+                if pubpath != "":
+                    imgpath = pubpath+"\n"+imgpath
+                if instpath != "":
+                    imgpath = imgpath+"\n"+instpath
             os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
             if is_running("omxiv") == False:
                 os.system("VIEWER")

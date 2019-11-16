@@ -26,9 +26,6 @@ def is_running(pname):
     else:
         return False
 
-if os.path.isfile(INTRO) == True:
-    run_cmd("omxplayer --display 4 " + INTRO)
-    
 def get_publisher(romname):
     filename = romname+".zip"
     publisher = ""
@@ -36,7 +33,11 @@ def get_publisher(romname):
         if filename in item.findtext('path'):
             publisher = item.findtext('publisher')
             break
-    return publisher
+    words = publisher.split()
+    return words[0]
+    
+if os.path.isfile(INTRO) == True:
+    run_cmd("omxplayer --display 4 " + INTRO)
 
 doc = ET.parse("/opt/retropie/configs/all/PieMarquee2/gamelist_short.xml")
 root = doc.getroot()

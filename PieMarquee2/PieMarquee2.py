@@ -42,7 +42,7 @@ doc = ET.parse("/opt/retropie/configs/all/PieMarquee2/gamelist_short.xml")
 root = doc.getroot()
 
 os.system("echo '/home/pi/PieMarquee2/marquee/maintitle.png' > /tmp/marquee.txt")
-os.system("VIEWER")
+os.system(VIEWER)
     
 cur_imgname = ""
 change_count = 0
@@ -121,7 +121,7 @@ while True:
                     imgpath = imgpath+"\n"+instpath
             os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
             if is_running("omxiv") == False:
-                os.system("VIEWER")
+                os.system(VIEWER)
         cur_imgname = imgname+ingame
 
     sleep(sleep_interval)

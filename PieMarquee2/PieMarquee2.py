@@ -94,7 +94,7 @@ while True:
                 pubpath = "/home/pi/PieMarquee2/marquee/publisher/" + publisher + ".png"
             if os.path.isfile("/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png") == True:
                 instpath = "/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png"
-    elif os.path.isfile("/home/pi/PieMarquee2/marquee/system/" + sysname + ".png") == True:
+    elif os.path.isfile("/home/pi/PieMarquee2/marquee/" + sysname + ".png") == True:
         imgname = sysname
     else:
         imgname = "maintitle"

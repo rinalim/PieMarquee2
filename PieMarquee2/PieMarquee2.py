@@ -6,6 +6,7 @@ from time import *
 import xml.etree.ElementTree as ET
 
 INTRO = "/opt/retropie/configs/all/PieMarquee2/intro.mp4"
+VIEWER = "omxiv /tmp/marquee.txt -f -d 4 -t 5 -T blend --duration 1000 &"
 
 def run_cmd(cmd):
 # runs whatever in the cmd variable
@@ -17,6 +18,13 @@ def kill_proc(name):
     ps_grep = run_cmd("ps -aux | grep " + name + "| grep -v 'grep'")
     if len(ps_grep) > 1: 
         os.system("killall " + name)
+        
+def is_running(pname):
+    ps_grep = run_cmd("ps -ef | grep " + pname + " | grep -v grep")
+    if len(ps_grep) > 1:
+        return True
+    else:
+        return False
 
 if os.path.isfile(INTRO) == True:
     run_cmd("omxplayer --display 4 " + INTRO)
@@ -34,7 +42,7 @@ doc = ET.parse("/opt/retropie/configs/all/PieMarquee2/gamelist_short.xml")
 root = doc.getroot()
 
 os.system("echo '/home/pi/PieMarquee2/marquee/maintitle.png' > /tmp/marquee.txt")
-os.system("omxiv /tmp/marquee.txt -f -d 4 -t 5 -T blend --duration 1000 &")    
+os.system("VIEWER")
     
 cur_imgname = ""
 change_count = 0
@@ -107,6 +115,8 @@ while True:
             '''
             imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
             os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
+            if is_running("omxiv") == False:
+                os.system("VIEWER")
         cur_imgname = imgname+ingame
 
     sleep(sleep_interval)

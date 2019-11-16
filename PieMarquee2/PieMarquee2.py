@@ -64,9 +64,9 @@ while True:
             for i in words:
                 if 'roms' in i:
                     path = i
+                    sysname = path.replace('"','').split("/")[-2]
+                    romname = path.replace('"','').split("/")[-1].split(".")[0]
                     break
-            sysname = path.replace('"','').split("/")[-2]
-            romname = path.replace('"','').split("/")[-1].split(".")[0]
 
     elif os.path.isfile("/tmp/PieMarquee.log") == True:
         f = open('/tmp/PieMarquee.log', 'r')
@@ -94,7 +94,7 @@ while True:
                 pubpath = "/home/pi/PieMarquee2/marquee/publisher/" + publisher + ".png"
             if os.path.isfile("/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png") == True:
                 instpath = "/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png"
-    elif os.path.isfile("/home/pi/PieMarquee2/marquee/" + sysname + ".png") == True:
+    elif os.path.isfile("/home/pi/PieMarquee2/marquee/system/" + sysname + ".png") == True:
         imgname = sysname
     else:
         imgname = "maintitle"

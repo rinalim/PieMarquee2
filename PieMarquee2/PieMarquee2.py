@@ -122,6 +122,7 @@ while True:
                     imgpath = imgpath+"\n"+instpath
             os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
             if is_running("omxiv") == False:
+                os.system("clear > /dev/tty1")
                 os.system(VIEWER)
         cur_imgname = imgname+ingame
 

@@ -122,8 +122,10 @@ while True:
                     imgpath = imgpath+"\n"+instpath
                 kill_proc("omxiv")
             os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
+            sleep(0.1) # if omxiv failed, execute again
             if is_running("omxiv") == False:
                 os.system("clear > /dev/tty1")
+                os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
                 os.system(VIEWER)
         cur_imgname = imgname+ingame
 

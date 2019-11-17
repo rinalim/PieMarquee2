@@ -6,7 +6,7 @@ from time import *
 import xml.etree.ElementTree as ET
 
 INTRO = "/opt/retropie/configs/all/PieMarquee2/intro.mp4"
-VIEWER = "omxiv /tmp/marquee.txt -f -d 4 -t 5 -T blend --duration 1000 &"
+VIEWER = "omxiv /tmp/marquee.txt -f -d 4 -t 5 -T blend --duration 900 &"
 
 def run_cmd(cmd):
 # runs whatever in the cmd variable

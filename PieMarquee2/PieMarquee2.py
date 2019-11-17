@@ -46,7 +46,6 @@ os.system("echo '/home/pi/PieMarquee2/marquee/maintitle.png' > /tmp/marquee.txt"
 os.system(VIEWER)
     
 cur_imgname = ""
-change_count = 0
 while True:
     sleep_interval = 1
     ingame = ""
@@ -122,11 +121,12 @@ while True:
                     imgpath = imgpath+"\n"+instpath
                 kill_proc("omxiv")
             os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
-            sleep(0.1) # if omxiv failed, execute again
-            if is_running("omxiv") == False:
+            sleep(0.2) 
+            if is_running("omxiv") == False: # if omxiv failed, execute again
                 os.system("clear > /dev/tty1")
                 os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
                 os.system(VIEWER)
-        cur_imgname = imgname+ingame
+            cur_imgname = imgname+ingame
+            continue
 
     sleep(sleep_interval)

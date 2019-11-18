@@ -102,7 +102,7 @@ while True:
     if imgname+ingame != cur_imgname: # change marquee images
         kill_proc("omxplayer.bin")
         if imgname == "maintitle" and os.path.isfile("/home/pi/PieMarquee2/marquee/maintitle.mp4") == True:
-            os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")
+            os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")            
         else:
             '''
             f = open("/tmp/marquee.txt", "w")
@@ -113,14 +113,18 @@ while True:
                 f.write("\n"+instpath)
             f.close()
             '''
-            imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
-            if ingame == "*":
-                if pubpath != "":
-                    imgpath = pubpath+"\n"+imgpath
-                if instpath != "":
-                    imgpath = imgpath+"\n"+instpath
-                kill_proc("omxiv")
-            os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
+            if os.path.isfile("/home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt") == True:
+                #kill_proc("omxiv")
+                os.system("cp /home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt" "/tmp/marquee.txt")
+            else:
+                imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
+                if ingame == "*":
+                    if pubpath != "":
+                        imgpath = pubpath+"\n"+imgpath
+                    if instpath != "":
+                        imgpath = imgpath+"\n"+instpath
+                #kill_proc("omxiv")
+                os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
             sleep(0.2) 
             if is_running("omxiv") == False: # if omxiv failed, execute again
                 os.system("clear > /dev/tty1")

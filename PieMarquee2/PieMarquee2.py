@@ -113,9 +113,10 @@ while True:
                 f.write("\n"+instpath)
             f.close()
             '''
-            if os.path.isfile("/home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt") == True:
+            if os.path.isfile("/home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt") == True and ingame == "*":
                 #kill_proc("omxiv")
-                os.system("cp /home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt" " /tmp/marquee.txt")
+                f = open("/home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt", "r")
+                imgpath = f.read()
             else:
                 imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
                 if ingame == "*":
@@ -124,7 +125,7 @@ while True:
                     if instpath != "":
                         imgpath = imgpath+"\n"+instpath
                 #kill_proc("omxiv")
-                os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
+            os.system("echo '" + imgpath + "' > /tmp/marquee.txt")
             sleep(0.2) 
             if is_running("omxiv") == False: # if omxiv failed, execute again
                 os.system("clear > /dev/tty1")

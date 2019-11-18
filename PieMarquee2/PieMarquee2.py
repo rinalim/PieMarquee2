@@ -115,7 +115,7 @@ while True:
             '''
             if os.path.isfile("/home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt") == True:
                 #kill_proc("omxiv")
-                os.system("cp /home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt" "/tmp/marquee.txt")
+                os.system("cp /home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt" " /tmp/marquee.txt")
             else:
                 imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
                 if ingame == "*":

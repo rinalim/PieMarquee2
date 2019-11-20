@@ -4,6 +4,8 @@ rm -rf /opt/retropie/configs/all/PieMarquee2/
 mkdir /opt/retropie/configs/all/PieMarquee2/
 cp -f -r ./PieMarquee2 /opt/retropie/configs/all/
 
+sudo chmod 755 /opt/retropie/configs/all/PieMarquee2/omxiv-marquee
+
 sudo sed -i '/PieMarquee2.py/d' /opt/retropie/configs/all/autostart.sh
 sudo sed -i '1i\\/usr/bin/python /opt/retropie/configs/all/PieMarquee2/PieMarquee2.py &' /opt/retropie/configs/all/autostart.sh
 

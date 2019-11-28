@@ -5,7 +5,7 @@ from subprocess import *
 from time import *
 import xml.etree.ElementTree as ET
 
-INTRO = "/opt/retropie/configs/all/PieMarquee2/intro.mp4"
+INTRO = "/home/pi/PieMarquee2/intro.mp4"
 VIEWER = "/opt/retropie/configs/all/PieMarquee2/omxiv-marquee /tmp/marquee.txt -f -d 4 -t 5 -T blend --duration 900 &"
 
 def run_cmd(cmd):

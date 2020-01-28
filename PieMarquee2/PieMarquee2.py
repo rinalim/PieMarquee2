@@ -35,7 +35,7 @@ def get_publisher(romname):
         if filename in item.findtext('path'):
             publisher = item.findtext('publisher')
             break
-    if publisher = "":
+    if publisher == "":
         return ""
     words = publisher.split()
     return words[0].lower()

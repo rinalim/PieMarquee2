@@ -83,9 +83,9 @@ while True:
         if len(words) == 2: # In the gamelist: Game /home/pi/.../*.zip
             sysname = words[1].replace('"','').split("/")[-2]
             if sysname in arcade:
-                romname = path.replace('"','').split("/")[-1].split(".")[0]
+                romname = words[1].replace('"','').split("/")[-1].split(".")[0]
             else:
-                romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
+                romname = sysname+'/'+words[1].replace('"','').split("/")[-1].split(".")[0]
             sleep_interval = 0.1 # for quick view
         elif len(words) == 1:
             if words[0] == "SystemView":

@@ -80,7 +80,7 @@ while True:
         line = f.readline()
         f.close()
         words = line.split()
-        if len(words) == 2 and words[0] == "Game:": # In the gamelist-> Game: /home/pi/.../*.zip
+        if len(words) > 1 and words[0] == "Game:": # In the gamelist-> Game: /home/pi/.../*.zip
             path = line.replace('Game: ','')
             sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:

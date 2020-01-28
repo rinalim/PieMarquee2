@@ -65,15 +65,13 @@ while True:
             sysname = "mame-advmame"
             romname = words[-1]
         else:
-            for i in words:
-                if 'roms' in i:
-                    path = i
-                    sysname = path.replace('"','').split("/")[-2]
-                    if sysname in arcade:
-                        romname = path.replace('"','').split("/")[-1].split(".")[0]
-                    else:
-                        romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
-                    break
+            pid = words[1]            
+            path = run_cmd("strings -n 1 /proc/"+pid+"/cmdline | grep roms")
+            sysname = path.replace('"','').split("/")[-2]
+            if sysname in arcade:
+                romname = path.replace('"','').split("/")[-1].split(".")[0]
+            else:
+                romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
 
     elif os.path.isfile("/tmp/PieMarquee.log") == True:
         f = open('/tmp/PieMarquee.log', 'r')

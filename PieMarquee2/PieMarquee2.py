@@ -8,6 +8,8 @@ import xml.etree.ElementTree as ET
 INTRO = "/home/pi/PieMarquee2/intro.mp4"
 VIEWER = "/opt/retropie/configs/all/PieMarquee2/omxiv-marquee /tmp/marquee.txt -f -d 4 -t 5 -T blend --duration 900 &"
 
+arcade = ['arcade', 'fba', 'mame-advmame', 'mame-libretro', 'mame-mame4all']
+
 def run_cmd(cmd):
 # runs whatever in the cmd variable
     p = Popen(cmd, shell=True, stdout=PIPE)
@@ -33,6 +35,8 @@ def get_publisher(romname):
         if filename in item.findtext('path'):
             publisher = item.findtext('publisher')
             break
+    if publisher = "":
+        return ""
     words = publisher.split()
     return words[0].lower()
     
@@ -65,7 +69,10 @@ while True:
                 if 'roms' in i:
                     path = i
                     sysname = path.replace('"','').split("/")[-2]
-                    romname = path.replace('"','').split("/")[-1].split(".")[0]
+                    if sysname in arcade:
+                        romname = path.replace('"','').split("/")[-1].split(".")[0]
+                    else:
+                        romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
                     break
 
     elif os.path.isfile("/tmp/PieMarquee.log") == True:
@@ -75,7 +82,10 @@ while True:
         words = line.split()
         if len(words) == 2: # In the gamelist: Game /home/pi/.../*.zip
             sysname = words[1].replace('"','').split("/")[-2]
-            romname = words[1].replace('"','').split("/")[-1].split(".")[0]
+            if sysname in arcade:
+                romname = path.replace('"','').split("/")[-1].split(".")[0]
+            else:
+                romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
             sleep_interval = 0.1 # for quick view
         elif len(words) == 1:
             if words[0] == "SystemView":

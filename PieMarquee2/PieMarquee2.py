@@ -67,6 +67,8 @@ while True:
         else:
             pid = words[1]            
             path = run_cmd("strings -n 1 /proc/"+pid+"/cmdline | grep roms")
+            if len(path.replace('"','').split("/")) < 2:
+                continue
             sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:
                 romname = path.replace('"','').split("/")[-1].split(".")[0]

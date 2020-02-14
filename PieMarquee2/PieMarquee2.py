@@ -35,7 +35,7 @@ def get_publisher(romname):
         if filename in item.findtext('path'):
             publisher = item.findtext('publisher')
             break
-    if publisher = "":
+    if publisher == "":
         return ""
     words = publisher.split()
     return words[0].lower()
@@ -65,23 +65,24 @@ while True:
             sysname = "mame-advmame"
             romname = words[-1]
         else:
-            for i in words:
-                if 'roms' in i:
-                    path = i
-                    sysname = path.replace('"','').split("/")[-2]
-                    if sysname in arcade:
-                        romname = path.replace('"','').split("/")[-1].split(".")[0]
-                    else:
-                        romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
-                    break
+            pid = words[1]            
+            path = run_cmd("strings -n 1 /proc/"+pid+"/cmdline | grep roms")
+            if len(path.replace('"','').split("/")) < 2:
+                continue
+            sysname = path.replace('"','').split("/")[-2]
+            if sysname in arcade:
+                romname = path.replace('"','').split("/")[-1].split(".")[0]
+            else:
+                romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
 
     elif os.path.isfile("/tmp/PieMarquee.log") == True:
         f = open('/tmp/PieMarquee.log', 'r')
         line = f.readline()
         f.close()
         words = line.split()
-        if len(words) == 2: # In the gamelist: Game /home/pi/.../*.zip
-            sysname = words[1].replace('"','').split("/")[-2]
+        if len(words) > 1 and words[0] == "Game:": # In the gamelist-> Game: /home/pi/.../*.zip
+            path = line.replace('Game: ','')
+            sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:
                 romname = path.replace('"','').split("/")[-1].split(".")[0]
             else:

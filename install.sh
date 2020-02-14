@@ -1,3 +1,4 @@
+sudo apt-get install libjpeg8 -y
 sudo apt-get install imagemagick -y
 
 rm -rf /opt/retropie/configs/all/PieMarquee2/

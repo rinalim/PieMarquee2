@@ -65,7 +65,9 @@ while True:
             sysname = "mame-advmame"
             romname = words[-1]
         else:
-            pid = words[1]            
+            pid = words[1]
+            if os.path.isfile("/proc/"+pid+"/cmdline") == False:
+                continue
             path = run_cmd("strings -n 1 /proc/"+pid+"/cmdline | grep roms")
             if len(path.replace('"','').split("/")) < 2:
                 continue

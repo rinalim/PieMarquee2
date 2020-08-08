@@ -51,7 +51,7 @@ root = doc.getroot()
 os.system("echo '/home/pi/PieMarquee2/marquee/maintitle.png' > /tmp/marquee.txt")
 os.system(VIEWER)
     
-cur_imgname = ""
+cur_imgname = "system/maintitle"
 while True:
     sleep_interval = 1
     ingame = ""
@@ -59,12 +59,13 @@ while True:
     sysname = ""
     pubpath = ""
     instpath = ""
+    imgpath = ""
     ps_grep = run_cmd("ps -aux | grep emulators | grep -v 'grep'")
     if len(ps_grep) > 1:
         ingame="*"
         words = ps_grep.split()
         if 'advmame' in ps_grep:
-            sysname = "mame-advmame"
+            sysname = "arcade"
             romname = words[-1]
         else:
             pid = words[1]
@@ -75,9 +76,8 @@ while True:
                 continue
             sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:
-                romname = path.replace('"','').split("/")[-1].split(".")[0]
-            else:
-                romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
+                sysname = "arcade"
+            romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
 
     elif os.path.isfile("/tmp/PieMarquee.log") == True:
         f = open('/tmp/PieMarquee.log', 'r')
@@ -88,21 +88,22 @@ while True:
             path = line.replace('Game: ','')
             sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:
-                romname = path.replace('"','').split("/")[-1].split(".")[0]
-            else:
-                romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
+                sysname = "arcade"
+            romname = path.replace('"','').split("/")[-1].split(".")[0]
             sleep_interval = 0.1 # for quick view
         elif len(words) == 1:
+            sysname = "system"
             if words[0] == "SystemView":
                 romname = "maintitle"
             else:
                 romname = words[0]
 
     else:
+        sysname = "system"
         romname = "maintitle"
    
     if os.path.isfile("/home/pi/PieMarquee2/marquee/" + romname + ".png") == True:
-        imgname = romname
+        imgname = sysname + "/" + romname
         if ingame == "*":
             publisher = get_publisher(romname)
             if os.path.isfile("/home/pi/PieMarquee2/marquee/publisher/" + publisher + ".png") == True:
@@ -110,9 +111,9 @@ while True:
             if os.path.isfile("/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png") == True:
                 instpath = "/home/pi/PieMarquee2/marquee/instruction/" + romname + ".png"
     elif os.path.isfile("/home/pi/PieMarquee2/marquee/" + sysname + ".png") == True:
-        imgname = sysname
+        imgname = "system/" + sysname
     else:
-        imgname = "maintitle"
+        imgname = "system/maintitle"
         
     if imgname+ingame != cur_imgname: # change marquee images
         kill_proc("omxplayer.bin")
@@ -146,6 +147,5 @@ while True:
                 os.system('echo "' + imgpath + '" > /tmp/marquee.txt')
                 os.system(VIEWER)
             cur_imgname = imgname+ingame
-            continue
 
     sleep(sleep_interval)

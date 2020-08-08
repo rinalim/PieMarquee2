@@ -44,7 +44,10 @@ def get_publisher(romname):
     return words[0].lower()
     
 if os.path.isfile(INTRO) == True:
+    ## for DPI screen
     run_cmd("omxplayer --display 4 " + INTRO)
+    ## for Pi4 hdmi1
+    run_cmd("omxplayer --display 7 " + INTRO)
 
 doc = ET.parse("/opt/retropie/configs/all/PieMarquee2/gamelist_short.xml")
 root = doc.getroot()

@@ -45,7 +45,7 @@ def get_publisher(romname):
     
 if os.path.isfile(INTRO) == True:
     ## for DPI screen
-    run_cmd("omxplayer --display 4 " + INTRO)
+    #run_cmd("omxplayer --display 4 " + INTRO)
     ## for Pi4 hdmi1
     run_cmd("omxplayer --display 7 " + INTRO)
 
@@ -122,7 +122,10 @@ while True:
     if imgname+ingame != cur_imgname: # change marquee images
         kill_proc("omxplayer.bin")
         if imgname == "maintitle" and os.path.isfile("/home/pi/PieMarquee2/marquee/maintitle.mp4") == True:
-            os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")            
+            ## for DPI screen
+            #os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")            
+            ## for Pi4 hdmi1
+            os.system("omxplayer --loop --no-osd --display 7 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")            
         else:
             '''
             f = open("/tmp/marquee.txt", "w")
@@ -134,7 +137,6 @@ while True:
             f.close()
             '''
             if os.path.isfile("/home/pi/PieMarquee2/marquee/custom/" + romname  + ".txt") == True and ingame == "*":
-                #kill_proc("omxiv")
                 os.system("cp /home/pi/PieMarquee2/marquee/custom/" + romname  + ".txt /tmp/marquee.txt")
             else:
                 imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
@@ -143,7 +145,6 @@ while True:
                         imgpath = pubpath+"\n"+imgpath
                     if instpath != "":
                         imgpath = imgpath+"\n"+instpath
-                #kill_proc("omxiv")
                 os.system('echo "' + imgpath + '" > /tmp/marquee.txt')
             sleep(0.2) 
             if is_running("omxiv-marquee") == False: # if omxiv failed, execute again

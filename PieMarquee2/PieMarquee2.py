@@ -78,7 +78,7 @@ while True:
             sysname = path.replace('"','').split("/")[-2]
             if sysname in arcade:
                 sysname = "arcade"
-            romname = sysname+'/'+path.replace('"','').split("/")[-1].split(".")[0]
+            romname = path.replace('"','').split("/")[-1].split(".")[0]
 
     elif os.path.isfile("/tmp/PieMarquee.log") == True:
         f = open('/tmp/PieMarquee.log', 'r')
@@ -103,7 +103,7 @@ while True:
         sysname = "system"
         romname = "maintitle"
    
-    if os.path.isfile("/home/pi/PieMarquee2/marquee/" + romname + ".png") == True:
+    if os.path.isfile("/home/pi/PieMarquee2/marquee/" + sysname  + "/" + romname + ".png") == True:
         imgname = sysname + "/" + romname
         if ingame == "*":
             publisher = get_publisher(romname)

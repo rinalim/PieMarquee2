@@ -51,7 +51,7 @@ root = doc.getroot()
 os.system("echo '/home/pi/PieMarquee2/marquee/maintitle.png' > /tmp/marquee.txt")
 os.system(VIEWER)
     
-cur_imgname = "system/maintitle"
+cur_imgname = ""
 while True:
     sleep_interval = 1
     ingame = ""
@@ -129,9 +129,9 @@ while True:
                 f.write("\n"+instpath)
             f.close()
             '''
-            if os.path.isfile("/home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt") == True and ingame == "*":
+            if os.path.isfile("/home/pi/PieMarquee2/marquee/custom/" + romname  + ".txt") == True and ingame == "*":
                 #kill_proc("omxiv")
-                os.system("cp /home/pi/PieMarquee2/marquee/custom/" + imgname  + ".txt /tmp/marquee.txt")
+                os.system("cp /home/pi/PieMarquee2/marquee/custom/" + romname  + ".txt /tmp/marquee.txt")
             else:
                 imgpath = "/home/pi/PieMarquee2/marquee/" + imgname + ".png"
                 if ingame == "*":

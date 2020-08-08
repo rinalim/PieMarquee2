@@ -7,6 +7,8 @@ import xml.etree.ElementTree as ET
 
 INTRO = "/home/pi/PieMarquee2/intro.mp4"
 VIEWER = "/opt/retropie/configs/all/PieMarquee2/omxiv-marquee /tmp/marquee.txt -f -d 4 -t 5 -T blend --duration 900 &"
+## for Pi4 hdmi1
+#VIEWER = "/opt/retropie/configs/all/PieMarquee2/omxiv-marquee /tmp/marquee.txt -f -d 7 -t 5 -T blend --duration 900 &"
 
 arcade = ['arcade', 'fba', 'mame-advmame', 'mame-libretro', 'mame-mame4all']
 

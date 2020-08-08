@@ -48,10 +48,10 @@ if os.path.isfile(INTRO) == True:
 doc = ET.parse("/opt/retropie/configs/all/PieMarquee2/gamelist_short.xml")
 root = doc.getroot()
 
-os.system("echo '/home/pi/PieMarquee2/marquee/maintitle.png' > /tmp/marquee.txt")
+os.system("echo '/home/pi/PieMarquee2/marquee/system/maintitle.png' > /tmp/marquee.txt")
 os.system(VIEWER)
     
-cur_imgname = ""
+cur_imgname = "system/maintitle"
 while True:
     sleep_interval = 1
     ingame = ""

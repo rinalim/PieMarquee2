@@ -1,5 +1,13 @@
-sudo apt-get install libjpeg8 -y
-sudo apt-get install imagemagick -y
+#!/bin/bash
+#run as root user
+if [ "$(whoami)" != "root" ]; then
+	echo "Switching to root user..."
+	sudo bash $scriptfile $*
+	exit 1
+fi
+
+apt-get update
+apt-get install omxplayer libjpeg8 imagemagick -y
 
 rm -rf /opt/retropie/configs/all/PieMarquee2/
 mkdir /opt/retropie/configs/all/PieMarquee2/

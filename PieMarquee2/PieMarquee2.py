@@ -52,10 +52,17 @@ if os.path.isfile(INTRO) == True:
 doc = ET.parse("/opt/retropie/configs/all/PieMarquee2/gamelist_short.xml")
 root = doc.getroot()
 
-os.system("echo '/home/pi/PieMarquee2/marquee/system/maintitle.png' > /tmp/marquee.txt")
-os.system(VIEWER)
-    
+if os.path.isfile("/home/pi/PieMarquee2/marquee/system/maintitle.mp4") == True:
+    ## for DPI screen
+    #os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/system/maintitle.mp4 &")
+    ## for Pi4 hdmi1
+    os.system("omxplayer --loop --no-osd --display 7 /home/pi/PieMarquee2/marquee/system/maintitle.mp4 &")
+else:
+    os.system("echo '/home/pi/PieMarquee2/marquee/system/maintitle.png' > /tmp/marquee.txt")
+    os.system(VIEWER)
+
 cur_imgname = "system/maintitle"
+
 while True:
     sleep_interval = 1
     ingame = ""
@@ -82,7 +89,6 @@ while True:
             if sysname in arcade:
                 sysname = "arcade"
             romname = path.replace('"','').split("/")[-1].split(".")[0]
-
     elif os.path.isfile("/tmp/PieMarquee.log") == True:
         f = open('/tmp/PieMarquee.log', 'r')
         line = f.readline()
@@ -101,11 +107,10 @@ while True:
                 romname = "maintitle"
             else:
                 romname = words[0]
-
     else:
         sysname = "system"
         romname = "maintitle"
-   
+
     if os.path.isfile("/home/pi/PieMarquee2/marquee/" + sysname  + "/" + romname + ".png") == True:
         imgname = sysname + "/" + romname
         if ingame == "*":
@@ -118,14 +123,16 @@ while True:
         imgname = "system/" + sysname
     else:
         imgname = "system/maintitle"
-        
+
     if imgname+ingame != cur_imgname: # change marquee images
         kill_proc("omxplayer.bin")
-        if imgname == "maintitle" and os.path.isfile("/home/pi/PieMarquee2/marquee/maintitle.mp4") == True:
+        if imgname == "system/maintitle" and os.path.isfile("/home/pi/PieMarquee2/marquee/system/maintitle.mp4") == True:
             ## for DPI screen
-            #os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")            
+            #os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/system/maintitle.mp4 &")
             ## for Pi4 hdmi1
-            os.system("omxplayer --loop --no-osd --display 7 /home/pi/PieMarquee2/marquee/maintitle.mp4 &")            
+            kill_proc("omxiv-marquee")
+            os.system("omxplayer --loop --no-osd --display 7 /home/pi/PieMarquee2/marquee/system/maintitle.mp4 &")
+            cur_imgname = imgname+ingame
         else:
             '''
             f = open("/tmp/marquee.txt", "w")

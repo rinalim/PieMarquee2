@@ -22,7 +22,7 @@ run_cmd("convert -size " + resize + "xc:" + bg_color +
     " -matte -channel A +level 0," + bg_trans + "% +channel ./bg.png")
 
 if os.path.isdir(source_path) == False:
-    print "source path is not valid"
+    print "source path is not valid: " + source_path
 else:
     if os.path.isdir(os.getcwd()+"/"+dest_path) == False:
         os.mkdir(os.getcwd()+"/"+dest_path)

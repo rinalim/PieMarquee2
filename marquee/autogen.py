@@ -9,9 +9,9 @@ def run_cmd(cmd):
   
 input_dir = sys.argv[1].split("/")[0]
 input_file = sys.argv[1].split("/")[1]
-source_path = "/home/pi/RetroPie/roms/"+sys.argv[1]+"/marquee/"
-snapshot_parh = "/home/pi/RetroPie/roms/"+sys.argv[1]+"/snap/"
-dest_path = sys.argv[1]+"/"
+source_path = "/home/pi/RetroPie/roms/"+input_dir+"/marquee/"
+snapshot_parh = "/home/pi/RetroPie/roms/"+input_dir+"/snap/"
+dest_path = input_dir+"/"
 resize = sys.argv[2]
 resize_method = sys.argv[3]
 bg_color = sys.argv[4]

@@ -32,7 +32,7 @@ else:
         file_list = [input_file]
     for f in file_list:
         if ".png" in f:
-            run_cmd('convert "' + snapshot_parh + f + '" -resize ' + resize + ' "\! bg.png -composite' + dest_path + f + '"')
+            run_cmd('convert "' + snapshot_parh + f + '" -resize ' + resize + ' "\! bg.png -composite ' + dest_path + f + '"')
             run_cmd('convert "' + source_path + f + '" -resize ' + resize + ' logo.png')
             run_cmd('convert logo.png -background black -shadow 80x3+5+5 logo.png -composite shadow.png')
             run_cmd('composite -gravity center shadow.png "' + dest_path + f + ' " "' + dest_path + f + '"')

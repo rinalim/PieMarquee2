@@ -18,7 +18,7 @@ bg_color = sys.argv[4]
 bg_trans = str(100-int(sys.argv[5])*100)
 marquee_size = sys.argv[6]
 
-run_cmd("convert -size " + resize + "xc:" + bg_color + 
+run_cmd("convert -size " + resize + " xc:" + bg_color + 
     " -matte -channel A +level 0," + bg_trans + "% +channel ./bg.png")
 
 if os.path.isdir(source_path) == False:

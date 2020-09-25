@@ -29,7 +29,7 @@ else:
     if input_file == "*":
         file_list = os.listdir(source_path)
     else:
-        file_list = [source_path+"/"+input_file]
+        file_list = [input_file]
     for f in file_list:
         if ".png" in f:
             run_cmd('convert "' + snapshot_parh + f + '" -resize ' + resize + ' "\! bg.png -composite' + dest_path + f + '"')

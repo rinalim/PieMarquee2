@@ -83,9 +83,10 @@ while True:
             if os.path.isfile("/proc/"+pid+"/cmdline") == False:
                 continue
             path = run_cmd("strings -n 1 /proc/"+pid+"/cmdline | grep roms")
+            path = path.replace('/home/pi/RetroPie/roms/','')
             if len(path.replace('"','').split("/")) < 2:
                 continue
-            sysname = path.replace('"','').split("/")[-2]
+            sysname = path.replace('"','').split("/")[0]
             if sysname in arcade:
                 sysname = "arcade"
             romname = path.replace('"','').split("/")[-1].split(".")[0]
@@ -110,7 +111,8 @@ while True:
         words = line.split()
         if len(words) > 1 and words[0] == "Game:": # In the gamelist-> Game: /home/pi/.../*.zip
             path = line.replace('Game: ','')
-            sysname = path.replace('"','').split("/")[-2]
+            path = path.replace('/home/pi/RetroPie/roms/','')
+            sysname = path.replace('"','').split("/")[0]
             if sysname in arcade:
                 sysname = "arcade"
             romname = path.replace('"','').split("/")[-1].split(".")[0]

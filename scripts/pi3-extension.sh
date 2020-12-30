@@ -1,4 +1,4 @@
-sudo cp /opt/retropie/supplementary/emulationstation/emulationstation /opt/retropie/supplementary/emulationstation/emulationstation_org
+sudo cp -n /opt/retropie/supplementary/emulationstation/emulationstation /opt/retropie/supplementary/emulationstation/emulationstation_org
 sudo cp ./ES-pi3/emulationstation /opt/retropie/supplementary/emulationstation/emulationstation
 sudo chmod 755 /opt/retropie/supplementary/emulationstation/emulationstation
 

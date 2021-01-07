@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import os
 from subprocess import *
@@ -17,7 +17,7 @@ def run_cmd(cmd):
 # runs whatever in the cmd variable
     p = Popen(cmd, shell=True, stdout=PIPE)
     output = p.communicate()[0]
-    return output
+    return output.decode()
 
 def kill_proc(name):
     ps_grep = run_cmd("ps -aux | grep " + name + "| grep -v 'grep'")

@@ -9,7 +9,7 @@ INTRO = "/home/pi/PieMarquee2/intro.mp4"
 ## for DPI screen
 #VIEWER = "/opt/retropie/configs/all/PieMarquee2/omxiv-marquee /tmp/marquee.txt -f -d 4 -t 5 -T blend --duration 900 > /dev/null 2>&1 &"
 ## for Pi4 hdmi1
-VIEWER = "/opt/retropie/configs/all/PieMarquee2/omxiv-marquee /tmp/marquee.txt -f -d 7 -t 5 -T blend --duration 900 > /dev/null 2>&1 &"
+VIEWER = "/opt/retropie/configs/all/PieMarquee2/omxiv-marquee /tmp/marquee.txt -f -b -d 7 -t 5 -T blend --duration 900 > /dev/null 2>&1 &"
 
 arcade = ['arcade', 'fba', 'mame-advmame', 'mame-libretro', 'mame-mame4all']
 
@@ -89,7 +89,7 @@ while True:
             sysname = path.replace('"','').split("/")[0]
             if sysname in arcade:
                 sysname = "arcade"
-            romname = path.replace('"','').split("/")[-1].split(".")[0]
+            romname = path.replace('"','').split("/")[-1].rsplit('.', 1)[0]
     elif is_running("mp4") == True: # Video screensaver (OMXplayer)
         ps_grep = run_cmd("ps -aux | grep mp4 | grep -v 'grep'")
         if 'RetroPie' in ps_grep:
@@ -103,7 +103,7 @@ while True:
             sysname = path.replace('"','').split("/")[-3]
             if sysname in arcade:
                 sysname = "arcade"
-            romname = path.replace('"','').split("/")[-1].split(".")[0]
+            romname = path.replace('"','').split("/")[-1].rsplit('.', 1)[0]
     elif os.path.isfile("/tmp/PieMarquee.log") == True: # Extended ES
         f = open('/tmp/PieMarquee.log', 'r')
         line = f.readline()
@@ -115,7 +115,7 @@ while True:
             sysname = path.replace('"','').split("/")[0]
             if sysname in arcade:
                 sysname = "arcade"
-            romname = path.replace('"','').split("/")[-1].split(".")[0]
+            romname = path.replace('"','').split("/")[-1].rsplit('.', 1)[0]
             sleep_interval = 0.1 # for quick view
         elif len(words) == 1:
             sysname = "system"

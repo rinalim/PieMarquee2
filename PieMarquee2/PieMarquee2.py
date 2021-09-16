@@ -90,20 +90,21 @@ while True:
             if sysname in arcade:
                 sysname = "arcade"
             romname = path.replace('"','').split("/")[-1].rsplit('.', 1)[0]
-    elif is_running("mp4") == True: # Video screensaver (OMXplayer)
+    elif '--layer 10010' in run_cmd("ps -aux | grep mp4 | grep -v 'grep'") : # Video screensaver (OMXplayer)
         ps_grep = run_cmd("ps -aux | grep mp4 | grep -v 'grep'")
-        if 'RetroPie' in ps_grep:
+        if len(ps_grep) > 1 :
             words = ps_grep.split()
             pid = words[1]
-            if os.path.isfile("/proc/"+pid+"/cmdline") == False:
-                continue
-            path = run_cmd("strings -n 1 /proc/"+pid+"/cmdline | grep roms")
-            if len(path.replace('"','').split("/")) < 2:
-                continue
-            sysname = path.replace('"','').split("/")[-3]
-            if sysname in arcade:
-                sysname = "arcade"
-            romname = path.replace('"','').split("/")[-1].rsplit('.', 1)[0]
+        if os.path.isfile("/proc/"+pid+"/cmdline") == False:
+            continue
+        path = run_cmd("strings -n 1 /proc/"+pid+"/cmdline | grep mp4")
+        if len(path.replace('"','').split("/")) < 2:
+            continue
+        sysname = path.replace('"','').split("/")[-3]
+        if sysname in arcade:
+            sysname = "arcade"
+        romname = path.replace('"','').split("/")[-1].rsplit('.', 1)[0]
+        sleep_interval = 0.5
     elif os.path.isfile("/tmp/PieMarquee.log") == True: # Extended ES
         f = open('/tmp/PieMarquee.log', 'r')
         line = f.readline()

@@ -90,8 +90,8 @@ while True:
             if sysname in arcade:
                 sysname = "arcade"
             romname = path.replace('"','').split("/")[-1].rsplit('.', 1)[0]
-    elif '--layer 10010' in run_cmd("ps -aux | grep mp4 | grep -v 'grep'") : # Video screensaver (OMXplayer)
-        ps_grep = run_cmd("ps -aux | grep mp4 | grep -v 'grep'")
+    elif len(run_cmd("ps -aux | grep 'layer 10010' | grep -v 'grep'")) > 1 : # Video screensaver (OMXplayer)
+        ps_grep = run_cmd("ps -aux | grep 'layer 10010' | grep -v 'grep'")
         if len(ps_grep) > 1 :
             words = ps_grep.split()
             pid = words[1]
@@ -142,7 +142,12 @@ while True:
         imgname = "system/maintitle"
 
     if imgname+ingame != cur_imgname: # change marquee images
-        kill_proc("omxplayer.bin")
+        ps_grep = run_cmd("ps -aux | grep 'maintitle.mp4' | grep -v 'grep'")
+        if len(ps_grep) > 1 :
+            words = ps_grep.split()
+            pid = words[1]
+            os.system("ps -aux | grep maintitle.mp4 | awk '{print $2}'| xargs kill -9")
+        ##kill_proc("omxplayer.bin")
         if imgname == "system/maintitle" and os.path.isfile("/home/pi/PieMarquee2/marquee/system/maintitle.mp4") == True:
             ## for DPI screen
             #os.system("omxplayer --loop --no-osd --display 4 /home/pi/PieMarquee2/marquee/system/maintitle.mp4 &")
